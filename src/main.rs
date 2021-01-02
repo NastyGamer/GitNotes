@@ -63,9 +63,7 @@ fn main() -> io::Result<()> {
         open::that(PathBuf::from(".").join(&subject_choice).join(&document_choice).join("src").join("main.tex"));
     }
     println!("{}", Color::Green.paint("Done!\nPress enter to continue..."));
-    loop {
-        let _: String = read!("{}\n");
-    }
+    let _: String = read!("{}\n");
     Ok(())
 }
 
