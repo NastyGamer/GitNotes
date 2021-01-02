@@ -2,14 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/a" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/b" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/c" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/f" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lol" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/test" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/x" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/y" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/yes" vcs="Git" />
   </component>
 </project>
