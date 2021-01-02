@@ -14,11 +14,13 @@ use text_io::read;
 const DEBUG: bool = true;
 
 fn main() -> io::Result<()> {
-    let _ = ansi_term::enable_ansi_support();
+    #[cfg(target_family = "windows")]
+        let _ = ansi_term::enable_ansi_support();
     match Command::new("git").arg("--version").output() {
         Ok(v) => { println!("{}", Color::Green.paint(from_utf8(&*v.stdout).unwrap())) }
         Err(_) => { panic!(Color::Red.paint("Git not found")) }
     }
+    println!("{}", Color::Green.paint(format!("git_notes version {}", env!(CARGO_PKG_VERSION))));
     let subject_folders = list_subject_folders();
     if !subject_folders.contains(&String::from(".git")) {
         println!("{}", Color::Green.paint("Preparing workspace..."));
@@ -53,6 +55,16 @@ fn main() -> io::Result<()> {
     let document_choice: String = read!();
     println!("{}", Color::Green.paint(format!("Creating document {:?}...", PathBuf::from(".").join(&subject_choice).join(&document_choice))));
     create_new_document(PathBuf::from(".").join(&subject_choice).join(&document_choice));
+    println!("{}", Color::Green.paint("All done! Do you want to open the new document? (y/n)"));
+    let open_choice: String = read!();
+    if open_choice.to_lowercase().eq("y") {
+        #[cfg(target_os = "windows")]
+            Command::new("start").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
+        #[cfg(target_os = "linux")]
+            Command::new("xdg-open").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
+        #[cfg(target_os = "macos")]
+            Command::new("open").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
+    }
     println!("{}", Color::Green.paint("Done!\nPress enter to continue..."));
     let _: String = read!("{}\n");
     Ok(())
