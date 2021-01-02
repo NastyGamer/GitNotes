@@ -20,7 +20,7 @@ fn main() -> io::Result<()> {
         Ok(v) => { println!("{}", Color::Green.paint(from_utf8(&*v.stdout).unwrap())) }
         Err(_) => { panic!(Color::Red.paint("Git not found")) }
     }
-    println!("{}", Color::Green.paint(format!("git_notes version {}", env!(CARGO_PKG_VERSION))));
+    println!("{}", Color::Green.paint(format!("git_notes version {}", env!("CARGO_PKG_VERSION"))));
     let subject_folders = list_subject_folders();
     if !subject_folders.contains(&String::from(".git")) {
         println!("{}", Color::Green.paint("Preparing workspace..."));
