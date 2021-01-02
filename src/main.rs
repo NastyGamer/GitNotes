@@ -1,13 +1,14 @@
 extern crate ansi_term;
 extern crate reqwest;
 extern crate text_io;
+extern crate open;
 
 use std::fs;
 use std::io;
 use std::path::PathBuf;
 use std::process::Command;
 use std::str::from_utf8;
-
+use open::that;
 use ansi_term::Color;
 use text_io::read;
 
@@ -58,15 +59,13 @@ fn main() -> io::Result<()> {
     println!("{}", Color::Green.paint("All done! Do you want to open the new document? (y/n)"));
     let open_choice: String = read!();
     if open_choice.to_lowercase().eq("y") {
-        #[cfg(target_os = "windows")]
-            Command::new("start").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
-        #[cfg(target_os = "linux")]
-            Command::new("xdg-open").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
-        #[cfg(target_os = "macos")]
-            Command::new("open").arg(PathBuf::from(".").join(&subject_choice).join("src").join("main.tex"));
+        println!("Attempting to open {}", String::from(PathBuf::from(".").join(&subject_choice).join(&document_choice).join("src").join("main.tex").to_str().unwrap()));
+        open::that(PathBuf::from(".").join(&subject_choice).join(&document_choice).join("src").join("main.tex"));
     }
     println!("{}", Color::Green.paint("Done!\nPress enter to continue..."));
-    let _: String = read!("{}\n");
+    loop {
+        let _: String = read!("{}\n");
+    }
     Ok(())
 }
 

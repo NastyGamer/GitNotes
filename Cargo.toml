@@ -1,6 +1,6 @@
 [package]
 name = "git_notes"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["NastyGamer <jones.m.987654321@gmail.com>"]
 edition = "2018"
 
@@ -10,6 +10,7 @@ edition = "2018"
 reqwest = { version = "0.10.10-alpha.2", features = ["blocking"] }
 text_io = "0.1.8"
 ansi_term = "0.12"
+open = "1.4.0"
 
 [profile.release]
 overflow-checks = true
